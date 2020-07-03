@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
+body {
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+  background-color: #F4EDEA;
+  color:#25283D;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-family: "Marck Script", cursive;
+  color: #F4EDEA;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h3 {
+  color: #F4EDEA;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h5 {
+  color: #25283D
 }
 
-.App-link {
-  color: #61dafb;
+h6 {
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+  color: #25283D;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.jumbotron {
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+  background-color: #8C5383;
+  height: 175px;
+  margin:0;
+}
+
+.row {
+  margin-bottom: 100px;
+}
+
+.card {
+  margin-bottom: 25px;
+}
+
+.CardHeader {
+  background-color: #0081AF; 
+  background-image: linear-gradient(to bottom right, #0081AF, #8C5383); 
+}
+
+.card-body {
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+  background-color: #8ACDEA;
+}
+
+.navbar {
+  background-color: #25283D;
+}
+
+#text-container {
+  padding: 20px;
+  border: solid #8C5383;
+  color: #25283D;
+  font-size: 18px;
+}
+
+#results-container {
+  padding: 20px;
+  border: solid #0081AF;
+  color: #25283D;
+  font-size: 16px;
+}
+
+.form-group.row {
+  margin-bottom: 0px;
+}
+
+.btn-info {
+  background-color: #8ACDEA;
 }
