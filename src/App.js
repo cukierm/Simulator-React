@@ -1,14 +1,17 @@
 import React from 'react';
-import { Navbar } from 'reactstrap';
+import { BrowserRouter} from 'react-router-dom';
+import Main from './components/MainComponent';
 import './App.css';
-import SimulatorContainer from './components/SimulatorContainerComponent.js';
+
 
 function App() {
   return (
     <div>
-      <Navbar dark sticky="top">
-      </Navbar>
-      <SimulatorContainer />
+          <BrowserRouter>
+            <div className="App">
+              <Main />
+            </div>
+          </BrowserRouter>
     </div>
   );
 }

@@ -18,17 +18,35 @@ class SimCard extends Component {
     }
 }
 
-class Analysis extends Component {
-    render() {
+function Analysis(props) {
+    console.log(`props are ${JSON.stringify(props)}`) 
         return(
             <div id="results-container">
-                <p>Drawing 50 samples...</p>
+               <p>Look at me printing {props.pHat}! and {props.ho}! and {props.ha}! {props.n}!</p>  
+                
             </div>
         );
-    }
 }
 
 class SimulatorContainer extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            pHat: null,
+            ho: null,
+            ha: null,
+            n: null,
+            touched: {
+                pHat: false,
+                ho: false,
+                ha: false,
+                n: false
+            }
+        };
+    };
+
     render() {
         return (
             <div className="row">
@@ -36,7 +54,7 @@ class SimulatorContainer extends Component {
                     <SimCard />
                 </div>
                 <div className="col">
-                    <Analysis />
+                    <Analysis pHat={this.state.pHat} ho={this.state.ho} ha={this.state.ha} n={this.state.n} />
                 </div>
             </div>
         );

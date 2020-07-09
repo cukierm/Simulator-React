@@ -1,6 +1,9 @@
+
+@import url('https://fonts.googleapis.com/css?family=Marck+Script');
+
 body {
   font-family: "Georgia", "Times", "Times New Roman", serif;
-  background-color: #F4EDEA;
+  background-color: "#F4EDEA";
   color:#25283D;
 
 }
@@ -24,10 +27,11 @@ h6 {
 }
 
 .jumbotron {
-  font-family: "Georgia", "Times", "Times New Roman", serif;
+  font-family: "Marck Script", cursive;
   background-color: #8C5383;
   height: 175px;
-  margin:0;
+  margin-bottom: 0rem;
+  color: #F4EDEA
 }
 
 .row {
@@ -50,9 +54,18 @@ h6 {
 
 .navbar {
   background-color: #25283D;
+
+}
+
+.nav-link {
+  color: #F4EDEA;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 
 #text-container {
+  font-family: "Georgia", "Times", "Times New Roman", serif;
   padding: 20px;
   border: solid #8C5383;
   color: #25283D;

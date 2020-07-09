@@ -4,26 +4,11 @@ import '../App.css';
 
 
 class SimulatorForm extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            pHat: null,
-            ho: null,
-            ha: null,
-            n: null,
-            touched: {
-                pHat: false,
-                ho: false,
-                ha: false,
-                n: false
-            }
-        };
-           
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+        constructor(props) {
+            super(props)
+            this.handleInputChange = this.handleInputChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }       
 
     handleInputChange(event) {
         const target = event.target;
@@ -37,19 +22,18 @@ class SimulatorForm extends Component {
 
     handleSubmit(event) {
         console.log('Current state is: ' + JSON.stringify(this.state));
-        alert('Current state is: ' + JSON.stringify(this.state));
         event.preventDefault();
     }
 
     render () {
         return (
-                    <div class="row mt-3 offset-1">  
+                    <div className="row mt-3 offset-1">  
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup row>
                                 <Label htmlFor="pHat">p&#770; = &nbsp;</Label>
                                 <Col xs={3}>
                                     <Input type="text" id="pHat" name="pHat"
-                                        value={this.state.pHat}
+                                        value={this.props.pHat}
                                         onChange={this.handleInputChange} />
                                 </Col>
                             </FormGroup>
@@ -57,7 +41,7 @@ class SimulatorForm extends Component {
                                 <Label htmlFor="ho">Ho: p = &nbsp;</Label>
                                 <Col xs={3}>
                                     <Input type="text" id="ho" name="ho" 
-                                        value={this.state.ho}
+                                        value={this.props.ho}
                                         onChange={this.handleInputChange} />
                                 </Col>                        
                             </FormGroup>
@@ -65,22 +49,22 @@ class SimulatorForm extends Component {
                             <p>Ha: </p>
                                 <FormGroup check>
                                     <Label check>
-                                        <Input type="radio" name="ha" value="<" id="haLt" checked={this.state.ha === "<"} onChange={this.handleInputChange} />{' '}
+                                        <Input type="radio" name="ha" value="<" id="haLt" checked={this.props.ha === "<"} onChange={this.handleInputChange} />{' '}
                                         p &lt;
                                     </Label>
                                 </FormGroup>
                                     <FormGroup check>
                                     <Label check>
-                                        <Input type="radio" name="ha" value=">" id="haGt" checked={this.state.ha === "<"} onChange={this.handleInputChange} />{' '}
+                                        <Input type="radio" name="ha" value=">" id="haGt" checked={this.props.ha === "<"} onChange={this.handleInputChange} />{' '}
                                         p &gt;
                                     </Label>
                                 </FormGroup>
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="n">n = &nbsp;</Label>
-                                <Col xs={3}>
+                                <Col xs={4}>
                                     <Input type="text" id="n" name="n"
-                                        value={this.state.n}
+                                        value={this.props.n}
                                         onChange={this.handleInputChange} />
                                 </Col>
                             </FormGroup>
