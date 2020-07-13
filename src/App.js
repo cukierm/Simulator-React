@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter} from 'react-router-dom';
 import Main from './components/MainComponent';
 import './App.css';
+//import Parent from './components/practiceChildParentComponent';
 
 
 function App() {

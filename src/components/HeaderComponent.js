@@ -1,20 +1,12 @@
 import React, { Component  } from 'react';
-import { Navbar, Nav, NavLink, NavItem, Jumbotron } from 'reactstrap';
+import { Navbar, Nav, NavItem, } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
-class Header extends Component {
+class Navigation extends Component {
     render() {
         return (
             <React.Fragment>
-                <Jumbotron className="jumbotron" fluid style={{backgroundColor:"#8C5383", marginBottom:0}}>
-                    <div>
-                        <div className="flex-row">
-                            <div className="col d-flex justify-content-center">
-                                <h1>Simulator</h1>
-                            </div>
-                        </div>
-                    </div>
-                </Jumbotron>
-                <Navbar dark sticky="top">
+                <Navbar dark sticky="top" >
                     <div className="navbar">
                         <Nav navbar className="flex-row">
                             <NavItem>
@@ -35,4 +27,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default Navigation;

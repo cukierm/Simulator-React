@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Header from './HeaderComponent';
+import Navigation from './HeaderComponent';
 import SimulatorContainer from './SimulatorContainerComponent';
 import GuidedExample from './GuidedExampleComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
 
 class Main extends Component {
 
@@ -13,7 +14,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-            <Header />
+            <Navigation />
                 <Switch>
                     <Route path='/guided-example' component={GuidedExample} />
                     <Route path='/simulator' component={SimulatorContainer} />

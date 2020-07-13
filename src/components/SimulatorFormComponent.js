@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-import { Button, Label, Col, FormGroup, Form, Input } from 'reactstrap';
+import { Button, Label, Col, FormGroup, Form, Input, Card, CardHeader, CardBody } from 'reactstrap';
 import '../App.css';
 
 
 class SimulatorForm extends Component {
         constructor(props) {
             super(props)
+
+            this.state = {
+                pHat: null,
+                ho: null,
+                ha: null,
+                n: null,
+                display: false,
+                checked: false
+                /*touched: {
+                    pHat: false,
+                    ho: false,
+                    ha: false,
+                    n: false
+                }*/
+            }
+
             this.handleInputChange = this.handleInputChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
         }       
@@ -18,15 +34,21 @@ class SimulatorForm extends Component {
         this.setState({
           [name]: value
         });
+        
     }
 
     handleSubmit(event) {
-        console.log('Current state is: ' + JSON.stringify(this.state));
+        this.props.updateState(this.state.pHat, this.state.ho, this.state.ha, this.state.n);
         event.preventDefault();
     }
 
     render () {
         return (
+            <Card>
+                    <CardHeader>
+                        <h3>Get Ready to Simulate!</h3>
+                    </CardHeader>
+                    <CardBody>
                     <div className="row mt-3 offset-1">  
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup row>
@@ -49,13 +71,13 @@ class SimulatorForm extends Component {
                             <p>Ha: </p>
                                 <FormGroup check>
                                     <Label check>
-                                        <Input type="radio" name="ha" value="<" id="haLt" checked={this.props.ha === "<"} onChange={this.handleInputChange} />{' '}
+                                        <Input type="radio" name="ha" value="<" id="haLt" checked={this.state.ha === "<"} onChange={this.handleInputChange} />{' '}
                                         p &lt;
                                     </Label>
                                 </FormGroup>
                                     <FormGroup check>
                                     <Label check>
-                                        <Input type="radio" name="ha" value=">" id="haGt" checked={this.props.ha === "<"} onChange={this.handleInputChange} />{' '}
+                                        <Input type="radio" name="ha" value=">" id="haGt" checked={this.state.ha === ">"} onChange={this.handleInputChange} />{' '}
                                         p &gt;
                                     </Label>
                                 </FormGroup>
@@ -77,7 +99,8 @@ class SimulatorForm extends Component {
                             </FormGroup>
                         </Form>
                     </div>  
-
+                </CardBody>
+                </Card>
         )
     }
 }    

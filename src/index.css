@@ -41,6 +41,8 @@ h6 {
 .card-header {
   background-color: #0081AF; 
   background-image: linear-gradient(to bottom right, #0081AF, #8C5383); 
+  color: #F4EDEA;
+  font-family: "Georgia", "Times", "Times New Roman", serif;
 }
 
 .card-body {
@@ -50,6 +52,12 @@ h6 {
 
 .navbar {
   background-color: #25283D;
+  font-family: "Georgia", "Times", "Times New Roman", serif;
+
+}
+
+.row {
+  font-family: "Georgia", "Times", "Times New Roman", serif;
 }
 
 #text-container {
