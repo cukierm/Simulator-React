@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Label, Col, FormGroup, Form, Input, Card, CardHeader, CardBody } from 'reactstrap';
 import '../App.css';
-import FlexyJumbotron from './FlexyJumbotronComponent';
-
 
 class SimulatorForm extends Component {
         constructor(props) {
@@ -13,6 +11,7 @@ class SimulatorForm extends Component {
                 ho: null,
                 ha: null,
                 n: null,
+                numDraws: null,
                 display: false,
                 checked: false
                 /*touched: {
@@ -39,7 +38,8 @@ class SimulatorForm extends Component {
     }
 
     handleSubmit(event) {
-        this.props.updateState(this.state.pHat, this.state.ho, this.state.ha, this.state.n);
+        this.props.updateState(this.state.pHat, this.state.ho, this.state.ha, this.state.n, this.state.numDraws);
+        console.log(JSON.stringify(this.state))
         event.preventDefault();
     }
 
@@ -48,8 +48,9 @@ class SimulatorForm extends Component {
         const styles = {
             row: {
                 display: 'flex',
-                alignItems: 'center',
-                margin: '4px'
+                alignItems: 'flex-start',
+                marginBottom: '40px',
+                fontSize: '20px'
             },
             label: {
                 fontSize: '3'
@@ -57,10 +58,11 @@ class SimulatorForm extends Component {
             button: {
                 backgroundColor: '#0081AF'
             },
-            buttonRow:{
+            buttonCol:{
                 display: 'flex',
-                alignItems: 'flex-end'
-            }
+                alignItems: 'flex-end',
+                justifyContent: 'center'
+            },
         };
 
         return (
@@ -75,7 +77,7 @@ class SimulatorForm extends Component {
                                 <Col xs={2.5} className='pr-0 mr-0'> 
                                     <Label styles={styles.label} htmlFor="ho">Ho: &nbsp; p = </Label>
                                 </Col>
-                                <Col xs={2} className='pl-0 ml-1'>
+                                <Col xs={3} className='pl-0 ml-1'>
                                     <Input type="text" id="ho" name="ho" 
                                         value={this.props.ho}
                                         onChange={this.handleInputChange} />
@@ -83,7 +85,7 @@ class SimulatorForm extends Component {
                                 <Col xs={2} className='pr-0 mr-0'>
                                 <Label htmlFor="pHat">p&#770; = </Label>
                                 </Col>
-                                <Col xs={2} className='pl-0 ml-0'>
+                                <Col xs={3} className='pl-0 ml-0'>
                                     <Input type="text" id="pHat" name="pHat"
                                         value={this.props.pHat}
                                         onChange={this.handleInputChange} />
@@ -91,8 +93,8 @@ class SimulatorForm extends Component {
                             </FormGroup>
 
                             <FormGroup row style={styles.row}>
-                                <Col>
-                                <p>Ha: </p>
+                                <Col xs={5} className="pl-0">
+                                Ha: 
                                 <FormGroup check>
                                     <Label check>
                                         <Input type="radio" name="ha" value="<" id="haLt" checked={this.state.ha === "<"} onChange={this.handleInputChange} />{' '}
@@ -107,24 +109,31 @@ class SimulatorForm extends Component {
                                
                                 </FormGroup>
                                 </Col>
-                                <FormGroup row>
-                                    <Col>
+
+
+                                    <Col xs={2} className="px-0">
                                         <Label htmlFor="n">n = &nbsp;</Label>
+                                    </Col>
+                                    <Col xs={3}>
                                     <Input type="text" id="n" name="n"
                                         value={this.props.n}
                                         onChange={this.handleInputChange} />
                                     </Col>                          
-                                </FormGroup>
-                            </FormGroup>
-                            <FormGroup row styles={{display: 'flex', justifyContent: 'flex-end'}} >
 
-                                    <Button type="submit">
+                            </FormGroup>
+                            <FormGroup row style={styles.row}>
+                                <Col className="pl-0">
+                                    <Label htmlFor="numDraws">Number of simulations:</Label>
+                                    <Input type="text" name="numDraws" id="numDraws" value={this.props.numDraws} onChange={this.handleInputChange} />
+                                </Col>
+                                <Col style={styles.buttonCol}>
+                                    <Button type="submit" style={styles.button}>
                                         Go!
                                     </Button>
-
+                                </Col>
                             </FormGroup>
-                            </Form>
-                        </div>  
+                        </Form>
+                    </div>  
                 </CardBody>
             </Card>
         );

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import '../App.css';
 import SimulatorForm from './SimulatorFormComponent.js';
 import FlexyJumbotron from './FlexyJumbotronComponent.js';
+import { computeSampleProp } from '../helpers.js';
 
 
-    function computeSampleProp (probSuccess, sampleSize) {
+   /* function computeSampleProp (probSuccess, sampleSize) {
         let successes = 0;
         for (let i=0; i<sampleSize; i++) {
             if (Math.random() < probSuccess) {
@@ -13,22 +14,24 @@ import FlexyJumbotron from './FlexyJumbotronComponent.js';
         }
         return successes/sampleSize;
     };
+*/
 
-
-    function computeSampleArray(pHat, ho, ha, n) {  
+    function computeSampleArray(pHat, ho, ha, n, numDraws) {  
         let propCount = 0;
         let samplePropArray=[]
         if (ha === '>') {
-            for (let i=0; i<50; i++) {
+            for (let i=0; i<numDraws; i++) {
                 let sampleProp = computeSampleProp(ho, n);
                 samplePropArray.push(sampleProp);
                 if (sampleProp >= pHat) { 
                     propCount++;
                 }            
             }
+            console.log([pHat, ho, ha, n, numDraws]);
+            console.log(propCount);
         }
         else if (ha === '<') {
-            for (let i=0; i<50; i++) {
+            for (let i=0; i<numDraws; i++) {
                 let sampleProp = computeSampleProp(ho, n);
                 samplePropArray.push(sampleProp);
                 if (sampleProp <= pHat) { 
@@ -42,28 +45,30 @@ import FlexyJumbotron from './FlexyJumbotronComponent.js';
 
 function Analysis(props) {
     if (props.display) {
-        var infoArray = computeSampleArray(props.pHat, props.ho, props.ha, props.n);
+        console.log('this is from Analysis: ' + [props.pHat, props.ho, props.ha, props.n, props.numDraws]);
+        var infoArray = computeSampleArray(props.pHat, props.ho, props.ha, props.n, props.numDraws);
         var samplePropArray = infoArray[0];
         var roundedSamplePropArray = samplePropArray.map(x => x.toFixed(2));
         var propCount = infoArray[1];
         var stringSampleProps = roundedSamplePropArray.join(', ');
         var samplePropDirectionText
+        console.log(infoArray);
         if (props.ha === '>') { samplePropDirectionText = 'greater than' }
         else if (props.ha === '<') { samplePropDirectionText = 'less than' }
         else {samplePropDirectionText = ''}
         return(
             <div id="results-container">
-                <h3>Drawing 50 samples...</h3>
+                <h3>Drawing samples...</h3>
                <p>{stringSampleProps}</p>
-               <p>The percentage of sample proportions {props.ha} or equal to {Number(props.pHat)} is {(propCount/50).toFixed(3)}.</p> 
-                <p>The percentage  {propCount/50} is called a P-value. It is the approximate likelihood that a sample proportion will be {samplePropDirectionText} {Number(props.pHat)}, assuming that the population proportion is {Number(props.ho)}.</p>
+               <p>The percentage of sample proportions {props.ha} or equal to {Number(props.pHat)} is {(propCount/props.numDraws).toFixed(3)}.</p> 
+                <p>The percentage  {(propCount/props.numDraws).toFixed(3)} is called a P-value. It is the approximate likelihood that a sample proportion will be {samplePropDirectionText} {Number(props.pHat)}, assuming that the population proportion is {Number(props.ho)}.</p>
             </div>
         );
     }
     else {
         return(
             <div id="results-container">
-                <h3>Drawing 50 samples...</h3>          
+                <h3>Drawing samples...</h3>          
             </div>
         );
     }
@@ -79,6 +84,7 @@ class SimulatorContainer extends Component {
             ho: null,
             ha: null,
             n: null,
+            numDraws: null,
             display: false,
             checked: false
             /*touched: {
@@ -90,9 +96,9 @@ class SimulatorContainer extends Component {
         };
     };
 
-    updateState = (newPHat, newHo, newHa, newN) => {
+    updateState = (newPHat, newHo, newHa, newN, newNumDraws) => {
         this.setState(
-        {pHat: newPHat, ho: newHo, ha: newHa, n: newN, display: true})
+        {pHat: newPHat, ho: newHo, ha: newHa, n: newN, numDraws: newNumDraws, display: true})
       }
 
     render() {
@@ -104,7 +110,7 @@ class SimulatorContainer extends Component {
                         <SimulatorForm updateState={this.updateState} />
                     </div>
                     <div className="col">
-                        <Analysis pHat={this.state.pHat} ho={this.state.ho} ha={this.state.ha} n={this.state.n} display={this.state.display} />
+                        <Analysis pHat={this.state.pHat} ho={this.state.ho} ha={this.state.ha} n={this.state.n} numDraws={this.state.numDraws} display={this.state.display} />
                     </div>
                 </div>
             </div>
