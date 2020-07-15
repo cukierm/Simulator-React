@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Label, Col, FormGroup, Form, Input, Card, CardHeader, CardBody } from 'reactstrap';
 import '../App.css';
+import FlexyJumbotron from './FlexyJumbotronComponent';
 
 
 class SimulatorForm extends Component {
@@ -43,65 +44,90 @@ class SimulatorForm extends Component {
     }
 
     render () {
+
+        const styles = {
+            row: {
+                display: 'flex',
+                alignItems: 'center',
+                margin: '4px'
+            },
+            label: {
+                fontSize: '3'
+            },
+            button: {
+                backgroundColor: '#0081AF'
+            },
+            buttonRow:{
+                display: 'flex',
+                alignItems: 'flex-end'
+            }
+        };
+
         return (
             <Card>
-                    <CardHeader>
-                        <h3>Get Ready to Simulate!</h3>
-                    </CardHeader>
-                    <CardBody>
-                    <div className="row mt-3 offset-1">  
+                <CardHeader>
+                    <h3>Get Ready to Simulate!</h3>
+                </CardHeader>
+                <CardBody>
+                    <div className="Row mt-3 offset-1">  
                         <Form onSubmit={this.handleSubmit}>
-                            <FormGroup row>
-                                <Label htmlFor="pHat">p&#770; = &nbsp;</Label>
-                                <Col xs={3}>
+                            <FormGroup row style={styles.row}>
+                                <Col xs={2.5} className='pr-0 mr-0'> 
+                                    <Label styles={styles.label} htmlFor="ho">Ho: &nbsp; p = </Label>
+                                </Col>
+                                <Col xs={2} className='pl-0 ml-1'>
+                                    <Input type="text" id="ho" name="ho" 
+                                        value={this.props.ho}
+                                        onChange={this.handleInputChange} />
+                                </Col>  
+                                <Col xs={2} className='pr-0 mr-0'>
+                                <Label htmlFor="pHat">p&#770; = </Label>
+                                </Col>
+                                <Col xs={2} className='pl-0 ml-0'>
                                     <Input type="text" id="pHat" name="pHat"
                                         value={this.props.pHat}
                                         onChange={this.handleInputChange} />
                                 </Col>
                             </FormGroup>
-                            <FormGroup row>
-                                <Label htmlFor="ho">Ho: p = &nbsp;</Label>
-                                <Col xs={3}>
-                                    <Input type="text" id="ho" name="ho" 
-                                        value={this.props.ho}
-                                        onChange={this.handleInputChange} />
-                                </Col>                        
-                            </FormGroup>
-                            <FormGroup>
-                            <p>Ha: </p>
+
+                            <FormGroup row style={styles.row}>
+                                <Col>
+                                <p>Ha: </p>
                                 <FormGroup check>
                                     <Label check>
                                         <Input type="radio" name="ha" value="<" id="haLt" checked={this.state.ha === "<"} onChange={this.handleInputChange} />{' '}
-                                        p &lt;
+                                        p &lt; {this.state.ho}
                                     </Label>
                                 </FormGroup>
-                                    <FormGroup check>
+                                <FormGroup check>
                                     <Label check>
                                         <Input type="radio" name="ha" value=">" id="haGt" checked={this.state.ha === ">"} onChange={this.handleInputChange} />{' '}
-                                        p &gt;
+                                        p &gt; {this.state.ho}
                                     </Label>
+                               
                                 </FormGroup>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="n">n = &nbsp;</Label>
-                                <Col xs={4}>
+                                </Col>
+                                <FormGroup row>
+                                    <Col>
+                                        <Label htmlFor="n">n = &nbsp;</Label>
                                     <Input type="text" id="n" name="n"
                                         value={this.props.n}
                                         onChange={this.handleInputChange} />
-                                </Col>
+                                    </Col>                          
+                                </FormGroup>
                             </FormGroup>
-                            <FormGroup row>
-                                <Col md={{size: 10, offset: 2}}>
+                            <FormGroup row styles={{display: 'flex', justifyContent: 'flex-end'}} >
+
                                     <Button type="submit">
                                         Go!
                                     </Button>
-                                </Col>
+
                             </FormGroup>
-                        </Form>
-                    </div>  
+                            </Form>
+                        </div>  
                 </CardBody>
-                </Card>
-        )
+            </Card>
+        );
     }
 }    
 

@@ -256,7 +256,7 @@ class AlternativeHypothesis extends Component {
                 alert("The sample size needs to be a whole number. In this case, it is the number of people who took the Pepsi Challenge.");
             }
             else {alert("Try again. The sample size should be the number of people who took the Pepsi Challenge.");}
-            
+
             event.preventDefault();
         }
 
@@ -329,7 +329,7 @@ class GuidedExample extends Component {
 
     render() {
         return(
-            <React.Fragment>
+            <div style={{backgroundColor: '#F4EDEA'}}>
                 <FlexyJumbotron titleText={'Guided Example'} />
                 <PepsiChallenge />
                 <Proportions />
@@ -337,7 +337,7 @@ class GuidedExample extends Component {
                 <AlternativeHypothesis />
                 <SampleSize />
                 <Summary />
-            </React.Fragment>
+            </div>
         );
     }
 }

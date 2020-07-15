@@ -97,17 +97,17 @@ class SimulatorContainer extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div style={{backgroundColor: "#F4EDEA"}}>
               <FlexyJumbotron titleText="Simulator" />
                 <div className="row">
-                    <div className="col-md-4 col-sm-6">
+                    <div className="col-lg-4 col-sm-6">
                         <SimulatorForm updateState={this.updateState} />
                     </div>
                     <div className="col">
                         <Analysis pHat={this.state.pHat} ho={this.state.ho} ha={this.state.ha} n={this.state.n} display={this.state.display} />
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

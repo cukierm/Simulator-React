@@ -47,7 +47,7 @@ h6 {
   background-image: linear-gradient(to bottom right, #0081AF, #8C5383); 
 }
 
-.card-body {
+.CardBody {
   font-family: "Georgia", "Times", "Times New Roman", serif;
   background-color: #8ACDEA;
 }
