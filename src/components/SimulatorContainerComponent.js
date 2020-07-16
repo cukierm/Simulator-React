@@ -4,18 +4,6 @@ import SimulatorForm from './SimulatorFormComponent.js';
 import FlexyJumbotron from './FlexyJumbotronComponent.js';
 import { computeSampleProp } from '../helpers.js';
 
-
-   /* function computeSampleProp (probSuccess, sampleSize) {
-        let successes = 0;
-        for (let i=0; i<sampleSize; i++) {
-            if (Math.random() < probSuccess) {
-                successes++;
-            }      
-        }
-        return successes/sampleSize;
-    };
-*/
-
     function computeSampleArray(pHat, ho, ha, n, numDraws) {  
         let propCount = 0;
         let samplePropArray=[]

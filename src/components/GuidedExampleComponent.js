@@ -332,17 +332,18 @@ class AlternativeHypothesis extends Component {
     constructor(props) {
         super(props)
         this.state={
-            sampleProp: "Click the button to fill this in",
+            sampleProp: 'hello! This is the child component!',
+            samplePropArray: []
         }
         this.drawOneSample=this.drawOneSample.bind(this);
     }
 
     drawOneSample() {
-        let sampleProp = computeSampleProp(.6, 25);
-        this.setState({sampleProp: sampleProp});
-        console.log(sampleProp);
+        let newSampleProp = computeSampleProp(.6, 25);
+        this.setState({sampleProp: newSampleProp});
+        this.props.updateSampleProp(newSampleProp);
+        console.log(newSampleProp);
     }
-    
     
     render() {
         return (
@@ -378,12 +379,10 @@ class AlternativeHypothesis extends Component {
 }
   
 class RepeatedSamples extends Component {
-
+       
     constructor(props) {
-        super(props)
-        this.state={
-            samplePropArray: []
-        }
+        super(props);
+        this.state={samplePropArray:[]}
         this.drawRepeatedSamples=this.drawRepeatedSamples.bind(this);
     }
 
@@ -392,10 +391,11 @@ class RepeatedSamples extends Component {
         let sampleProp = computeSampleProp(.6, 25);
         samplePropArray.push(sampleProp);
         this.setState({samplePropArray:samplePropArray});
+        this.props.updateSamplePropArray(samplePropArray);
         console.log(samplePropArray);
         console.log(JSON.stringify(this.state));
-}
-       
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -407,7 +407,7 @@ class RepeatedSamples extends Component {
                                     <h3>Drawing Repeated Samples</h3>
                                 </div>
                                 <div className="card-body">
-                                    <p>Even though half of the papers in the hat say "Pepsi," your sample wasn't 50% Pepsi. One reason is that the number of papers you drew, 25, is not divisible by 2! But a deeper reason is that things don't always work out exactly according to probability. This time, you got <em>figure this out</em>, but another time you might get a different proportion.</p>
+                                    <p>Even though half of the papers in the hat say "Pepsi," your sample wasn't 50% Pepsi. One reason is that the number of papers you drew, 25, is not divisible by 2! But a deeper reason is that things don't always work out exactly according to probability. This time, you got {this.props.oldSampleProp}, but another time you might get a different proportion.</p>
 
                                     <p>Keep pressing the button to make a list of 10 simulated sample proportions. (Each represents the proportion of the 25 slips you drew that say "Pepsi").</p>
                                 </div>
@@ -416,7 +416,7 @@ class RepeatedSamples extends Component {
 
                         <div className="col">
                             <div id="text-container">
-                                <p>Keep pressing the button until you have 10 proportions. Each press of the button represents drawing 25 slips of paper and calculating the proportion that say "Pepsi."</p>
+                                <p>Keep pressing the button until you have 10 sample proportions. Each press of the button represents drawing 25 slips of paper and calculating the proportion that say "Pepsi."</p>
                                 <Button style={{backgroundColor:"#0081AF"}} onClick={this.drawRepeatedSamples}>Draw One Sample</Button>
                                 <p>List of sample proportions: {this.state.samplePropArray.join(', ')}</p>
                                 <p></p>
@@ -477,7 +477,8 @@ function StatisticalSignificance(props) {
 
                         <div className="col">
                             <div id="text-container">
-                                
+                                <p>Here are your sample proportions from above:</p>
+                                <p>{this.props.proportionList.join(', ')}</p>
                             </div>  
                         </div>  
                     </div>
@@ -487,6 +488,23 @@ function StatisticalSignificance(props) {
     }
 }
 class GuidedExample extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state={
+            sampleProp: "Click the button to fill this in",
+            samplePropArray: []
+            }
+        }
+
+        updateSampleProp = (newSampleProp) => {
+            this.setState({sampleProp: newSampleProp});
+            setTimeout(console.log('from updateSampleProp:' + JSON.stringify(this.state)), 100000);
+        }
+
+        updateSamplePropArray = (newSamplePropArray) => {
+            this.setState({samplePropArray: newSamplePropArray});
+        }
 
     render() {
         return(
@@ -498,10 +516,10 @@ class GuidedExample extends Component {
                 <AlternativeHypothesis />
                 <SampleSize />
                 <Summary />
-                <DrawingASample />
-                <RepeatedSamples />
+                <DrawingASample updateSampleProp={this.updateSampleProp}/>
+                <RepeatedSamples updateSamplePropArray={this.updateSamplePropArray} oldSampleProp={this.state.sampleProp}/>
                 <StatisticalSignificance />
-                <PValue />
+                <PValue proportionList={this.state.samplePropArray}/>
             </div>
         );
     }
