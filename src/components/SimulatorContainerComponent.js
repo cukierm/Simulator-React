@@ -75,14 +75,8 @@ class SimulatorContainer extends Component {
             numDraws: null,
             display: false,
             checked: false
-            /*touched: {
-                pHat: false,
-                ho: false,
-                ha: false,
-                n: false
-            }*/
+            }
         };
-    };
 
     updateState = (newPHat, newHo, newHa, newN, newNumDraws) => {
         this.setState(
@@ -94,7 +88,7 @@ class SimulatorContainer extends Component {
             <div style={{backgroundColor: "#F4EDEA"}}>
               <FlexyJumbotron titleText="Simulator" />
                 <div className="row">
-                    <div className="col-lg-4 col-sm-6">
+                    <div className="col-lg-4 col-md-6">
                         <SimulatorForm updateState={this.updateState} />
                     </div>
                     <div className="col">

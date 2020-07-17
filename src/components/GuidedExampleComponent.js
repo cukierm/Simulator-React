@@ -332,7 +332,7 @@ class AlternativeHypothesis extends Component {
     constructor(props) {
         super(props)
         this.state={
-            sampleProp: 'hello! This is the child component!',
+            sampleProp: '',
             samplePropArray: []
         }
         this.drawOneSample=this.drawOneSample.bind(this);
@@ -346,6 +346,13 @@ class AlternativeHypothesis extends Component {
     }
     
     render() {
+        
+        const center = {
+            display: 'flex',
+            justifyContent: 'center',
+            fontSize: '30px'
+        }
+
         return (
             <React.Fragment>
                 <div className="container">
@@ -367,8 +374,8 @@ class AlternativeHypothesis extends Component {
                             <div id="text-container">
                                 <p>Press the button below to draw the 25 slips of paper:</p>
                                 <Button style={{backgroundColor:"#0081AF"}} onClick={this.drawOneSample}>Draw One Sample</Button>
-                                <p>The proportion of the 25 slips of paper that said "Pepsi" was: {this.state.sampleProp}</p>
-                                <p></p>
+                                <p>The proportion of the 25 slips of paper that said "Pepsi" was:</p>
+                                <p style={center}>{this.state.sampleProp}</p>
                             </div>  
                         </div>  
                     </div>
@@ -492,7 +499,7 @@ class GuidedExample extends Component {
     constructor(props) {
         super(props)
         this.state={
-            sampleProp: "Click the button to fill this in",
+            sampleProp: "",
             samplePropArray: []
             }
         }
