@@ -3,6 +3,7 @@ import '../App.css';
 import SimulatorForm from './SimulatorFormComponent.js';
 import FlexyJumbotron from './FlexyJumbotronComponent.js';
 import { computeSampleProp } from '../helpers.js';
+import Histogram from './testHistogramComponent.js';
 
     function computeSampleArray(pHat, ho, ha, n, numDraws) {  
         let propCount = 0;
@@ -33,14 +34,16 @@ import { computeSampleProp } from '../helpers.js';
 
 function Analysis(props) {
     if (props.display) {
+
         console.log('this is from Analysis: ' + [props.pHat, props.ho, props.ha, props.n, props.numDraws]);
         var infoArray = computeSampleArray(props.pHat, props.ho, props.ha, props.n, props.numDraws);
         var samplePropArray = infoArray[0];
         var roundedSamplePropArray = samplePropArray.map(x => x.toFixed(2));
+        console.log('this is infoArray', infoArray);
         var propCount = infoArray[1];
         var stringSampleProps = roundedSamplePropArray.join(', ');
         var samplePropDirectionText
-        console.log(infoArray);
+
         if (props.ha === '>') { samplePropDirectionText = 'greater than' }
         else if (props.ha === '<') { samplePropDirectionText = 'less than' }
         else {samplePropDirectionText = ''}
@@ -48,8 +51,10 @@ function Analysis(props) {
             <div id="results-container">
                 <h3>Drawing samples...</h3>
                <p>{stringSampleProps}</p>
-               <p>The percentage of sample proportions {props.ha} or equal to {Number(props.pHat)} is {(propCount/props.numDraws).toFixed(3)}.</p> 
-                <p>The percentage  {(propCount/props.numDraws).toFixed(3)} is called a P-value. It is the approximate likelihood that a sample proportion will be {samplePropDirectionText} {Number(props.pHat)}, assuming that the population proportion is {Number(props.ho)}.</p>
+               <p>{100*((propCount/props.numDraws).toFixed(3))}% of these sample proportions are {samplePropDirectionText} or equal to {Number(props.pHat)}.</p> 
+                <p>The proportion  {(propCount/props.numDraws).toFixed(3)} is called a P-value. It is the approximate likelihood that a sample proportion will be {samplePropDirectionText} {Number(props.pHat)}, assuming that the population proportion is {Number(props.ho)}.</p>
+                <p>You can also think of the P-value as the proportion of purple area in the histogram below. The histogram is made of all {props.numDraws} sample proportions. If the histogram has horizontal bars, hover over them to see each proportion.</p>
+                <Histogram samplePropArray={samplePropArray} pHat={props.pHat} ha={props.ha}/>
             </div>
         );
     }

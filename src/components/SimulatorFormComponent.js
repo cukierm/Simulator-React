@@ -190,9 +190,8 @@ class SimulatorForm extends Component {
                                     </Label>
                                
                                 </FormGroup>
+                                
                                 </Col>
-
-
                                     <Col xs={2} className="px-0">
                                         <Label htmlFor="n">n = &nbsp;</Label>
                                     </Col>
@@ -205,8 +204,8 @@ class SimulatorForm extends Component {
                                         className="float-right" />
                                     <FormFeedback>{errors.n}</FormFeedback>
                                     </Col>                          
-
                             </FormGroup>
+
                             <FormGroup row style={styles.row}>
                                 <Col className="pl-0">
                                     <Label htmlFor="numDraws">Number of simulations:</Label>
