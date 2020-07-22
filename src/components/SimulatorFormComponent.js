@@ -42,8 +42,11 @@ class SimulatorForm extends Component {
                 if (!pHat) {
                     errors.pHat = 'Please enter the sample proportion';
                 }
+                else if (isNaN(pHat)) {
+                    errors.pHat = 'The sample proportion must be a number';
+                }
                 else if (Number(pHat) > 1 || Number(pHat) < 0) {
-                    errors.pHat = 'the sample proportion must be between 0 and 1';
+                    errors.pHat = 'The sample proportion must be between 0 and 1';
                 }
 
             }
@@ -52,7 +55,9 @@ class SimulatorForm extends Component {
                 if (!ho) {
                     errors.ho = 'Please enter a proportion';
                 }
-                
+                else if (isNaN(ho)) {
+                    errors.ho = 'this proportion must be a number';
+                }
                 else if (Number(ho) > 1 || Number(ho) < 0) {
                     errors.ho = 'this proportion should be between 0 and 1';
                 }
@@ -68,6 +73,9 @@ class SimulatorForm extends Component {
                 if(!n) {
                     errors.n = 'Please enter the sample size';
                 }
+                else if (isNaN(pHat)) {
+                    errors.n = 'The sample size must be a number'
+                }
                 else if (Number(n) < 0) {
                     errors.n = 'The sample size must be positive';
                 }
@@ -80,6 +88,9 @@ class SimulatorForm extends Component {
                 if(!numDraws) {
                     errors.numDraws = 'Please enter the number of simulations';
                 }
+                else if (isNaN(numDraws)) {
+                    errors.numDraws = 'The number of simulations must be a number';
+                }    
                 else if (Number(numDraws) < 0) {
                     errors.numDraws = 'The number of simulations must be positive';
                 }
@@ -112,11 +123,11 @@ class SimulatorForm extends Component {
     }
 
     handleSubmit(event) {
-        if (this.state.ha) {
+        if (this.state.ha && this.state.ho && this.state.pHat && this.state.n && this.state.numDraws) {
             this.props.updateState(this.state.pHat, this.state.ho, this.state.ha, this.state.n, this.state.numDraws);
         }
         else {
-            alert('Please select an alternative hypothesis (Ha)');
+            alert('Please make all five selections.');
         }
         event.preventDefault();
     }

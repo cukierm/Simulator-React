@@ -47,6 +47,8 @@ class Analysis extends Component {
     }
 
     render () {
+        const numDisplay = 16;
+
         if (this.props.display) {
 
             var infoArray = computeSampleArray(this.props.pHat, this.props.ho, this.props.ha, this.props.n, this.props.numDraws);
@@ -54,7 +56,7 @@ class Analysis extends Component {
             
             var samplePropArray = infoArray[0];
             var roundedSamplePropArray = samplePropArray.map(x => x.toFixed(2));
-            var stringSampleProps = (this.props.numDraws <= 100 || this.state.displayAllSampleProps) ? roundedSamplePropArray.join(', ') : roundedSamplePropArray.slice(0,100).join(', ') + '...';
+            var stringSampleProps = (this.props.numDraws <= numDisplay || this.state.displayAllSampleProps) ? roundedSamplePropArray.join(', ') : roundedSamplePropArray.slice(0,numDisplay).join(', ') + '...';
 
             var samplePropDirectionText
             if (this.props.ha === '>') { samplePropDirectionText = 'greater than' }
@@ -62,7 +64,7 @@ class Analysis extends Component {
             else {samplePropDirectionText = ''}
 
             const renderButton = (numDraws) => {
-                if(numDraws >= 100) {
+                if(numDraws >= numDisplay) {
                     var buttonText = (this.state.displayAllSampleProps) ? 'SEE LESS' : 'SEE MORE';
                     return <Button 
                                 onClick={this.displaySamplePropsToggle}
