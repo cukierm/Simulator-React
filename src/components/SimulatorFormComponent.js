@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Label, Col, FormGroup, Form, Input, Card, CardHeader, CardBody, FormFeedback } from 'reactstrap';
+import { Button, Label, Col, FormGroup, Form, Input, Card, CardHeader, CardBody, FormFeedback, 
+    Dropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip } from 'reactstrap';
 import '../App.css';
 
 class SimulatorForm extends Component {
@@ -12,7 +13,8 @@ class SimulatorForm extends Component {
                 ha: null,
                 n: null,
                 numDraws: null,
-                display: false,
+                dropdownOpen: false,
+                display: '(Select)',
                 checked: false,
                 touched: {
                     pHat: false,
@@ -22,7 +24,6 @@ class SimulatorForm extends Component {
                     numDraws: false
                 }
             }
-
             this.handleInputChange = this.handleInputChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
         }       
@@ -49,7 +50,7 @@ class SimulatorForm extends Component {
 
             if (this.state.touched.ho) {
                 if (!ho) {
-                    errors.ho = 'Please enter a proportion for the null hypothesis';
+                    errors.ho = 'Please enter a proportion';
                 }
                 
                 else if (Number(ho) > 1 || Number(ho) < 0) {
@@ -77,13 +78,13 @@ class SimulatorForm extends Component {
 
             if (this.state.touched.numDraws) {
                 if(!numDraws) {
-                    errors.n = 'Please enter the number of simulations';
+                    errors.numDraws = 'Please enter the number of simulations';
                 }
-                else if (Number(n) < 0) {
-                    errors.n = 'The number of simulations must be positive';
+                else if (Number(numDraws) < 0) {
+                    errors.numDraws = 'The number of simulations must be positive';
                 }
-                else if (Number(n) % 1 !== 0) {
-                    errors.n = 'The number of simulations must be a whole number';
+                else if (Number(numDraws) % 1 !== 0) {
+                    errors.numDraws = 'The number of simulations must be a whole number';
                 }
             }
 
@@ -101,19 +102,26 @@ class SimulatorForm extends Component {
     handleInputChange(event) {
         const target = event.target;
         const name = target.name;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.type === 'select' ? target.selected : target.value;
     
         this.setState({
           [name]: value
         });
+        console.log(JSON.stringify(this.state));
         
     }
 
     handleSubmit(event) {
-        this.props.updateState(this.state.pHat, this.state.ho, this.state.ha, this.state.n, this.state.numDraws);
-        console.log(JSON.stringify(this.state))
+        if (this.state.ha) {
+            this.props.updateState(this.state.pHat, this.state.ho, this.state.ha, this.state.n, this.state.numDraws);
+        }
+        else {
+            alert('Please select an alternative hypothesis (Ha)');
+        }
         event.preventDefault();
     }
+
+    toggle = () => {this.setState({dropdownOpen: !this.state.dropdownOpen})};
 
     render () {
 
@@ -122,21 +130,19 @@ class SimulatorForm extends Component {
         const styles = {
             row: {
                 display: 'flex',
-                alignItems: 'flex-start',
+                alignItems: 'flex-end',
+
                 marginBottom: '40px',
                 fontSize: '20px'
             },
-            label: {
-                fontSize: '3'
-            },
+    
             button: {
                 backgroundColor: '#0081AF'
             },
             buttonCol:{
                 display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center'
-            },
+                justifyContent: 'center',
+            }
         };
 
         return (
@@ -145,24 +151,50 @@ class SimulatorForm extends Component {
                     <h3>Get Ready to Simulate!</h3>
                 </CardHeader>
                 <CardBody>
-                    <div className="Row mt-3 offset-1">  
-                        <Form onSubmit={this.handleSubmit}>
+                   
+                        <Form onSubmit={this.handleSubmit} className="px-4">
                             <FormGroup row style={styles.row}>
-                                <Col xs={2.5} className='pr-0 mr-0'> 
-                                    <Label styles={styles.label} htmlFor="ho">Ho: &nbsp; p = </Label>
+                            <Col xs={2.5} className='pr-0 mr-0'> 
+                                    <Label htmlFor="ho" id='hoLabel'>Ho: &nbsp; p = </Label>
+                                    <UncontrolledTooltip placement="top" target="hoLabel">The null hypothesis is a statement about the population proportion that says there is nothing significant going on. Enter this population proportion.</UncontrolledTooltip>
                                 </Col>
-                                <Col xs={3} className='pl-0 ml-1'>
+                                <Col xs={6} className='pl-0 ml-1'>
                                     <Input type="text" id="ho" name="ho" 
                                         value={this.props.ho}
                                         invalid={errors.ho}
                                         onBlur={this.handleBlur('ho')}
-                                        onChange={this.handleInputChange} />
+                                        onChange={this.handleInputChange}
+                                         />
                                     <FormFeedback>{errors.ho}</FormFeedback>
-                                </Col>  
-                                <Col xs={2} className='pr-0 mr-0'>
-                                <Label htmlFor="pHat">p&#770; = </Label>
                                 </Col>
-                                <Col xs={3} className='pl-0 ml-0'>
+                            </FormGroup>
+
+                            <FormGroup row style={styles.row}>
+                                <span id="haLabel">Ha: &nbsp; &nbsp; </span>
+                                <UncontrolledTooltip placement="top" target="haLabel">The alternative hypothesis says that the population proportion is either less than or greater than the proportion in the null hypothesis. Choose the statement of the alternative hypothesis that matches what you want to show.</UncontrolledTooltip>
+                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                <DropdownToggle id="dropdownToggle" caret>
+                                    {this.state.display}
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem 
+                                    onClick={() => this.setState({ha: '<', display: `p < ${this.state.ho}`})}>
+                                        p {'<'} {this.state.ho}
+                                    </DropdownItem>
+                                    <DropdownItem 
+                                    onClick={() => this.setState({ha: '>', display: `p > ${this.state.ho}`})}>
+                                        p {'>'} {this.state.ho}
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                            </FormGroup>
+
+                            <FormGroup row style={styles.row}>
+                                <Col xs={1} sm={2}className='px-0'>
+                                <Label htmlFor="pHat" id="pHatLabel">p&#770; = </Label>
+                                <UncontrolledTooltip placement="top" target="pHatLabel">Enter the sample proportion.</UncontrolledTooltip>
+                                </Col>
+                                <Col xs={6} className='pl-0 ml-0'>
                                     <Input type="text" id="pHat" name="pHat"
                                         value={this.props.pHat}
                                         invalid={errors.pHat}
@@ -170,60 +202,43 @@ class SimulatorForm extends Component {
                                         onChange={this.handleInputChange} />
                                     <FormFeedback>{errors.pHat}</FormFeedback>                                  
                                 </Col>
-                                
-                                
                             </FormGroup>
-
                             <FormGroup row style={styles.row}>
-                                <Col xs={5} className="pl-0">
-                                Ha: 
-                                <FormGroup check>
-                                    <Label check>
-                                        <Input type="radio" name="ha" value="<" id="haLt" checked={this.state.ha === "<"} onChange={this.handleInputChange} />{' '}
-                                        p &lt; {this.state.ho}
-                                    </Label>
-                                </FormGroup>
-                                <FormGroup check>
-                                    <Label check>
-                                        <Input type="radio" name="ha" value=">" id="haGt" checked={this.state.ha === ">"} onChange={this.handleInputChange} />{' '}
-                                        p &gt; {this.state.ho}
-                                    </Label>
-                               
-                                </FormGroup>
-                                
+                                <Col xs={1} sm={2} className="px-0">
+                                    <Label htmlFor="n" id='n'>n = &nbsp;</Label>
+                                    <UncontrolledTooltip placement='top' target='n'>Enter the sample size</UncontrolledTooltip>
                                 </Col>
-                                    <Col xs={2} className="px-0">
-                                        <Label htmlFor="n">n = &nbsp;</Label>
-                                    </Col>
-                                    <Col xs={3} className="pl-0 ml-0">
+                                <Col xs={6} className="pl-0 ml-0">
                                     <Input type="text" id="n" name="n"
                                         value={this.props.n}
                                         invalid={errors.n}
                                         onBlur={this.handleBlur('n')}
-                                        onChange={this.handleInputChange}
-                                        className="float-right" />
-                                    <FormFeedback>{errors.n}</FormFeedback>
-                                    </Col>                          
+                                        onChange={this.handleInputChange}/>
+                                <FormFeedback>{errors.n}</FormFeedback>
+                                </Col>                          
                             </FormGroup>
 
                             <FormGroup row style={styles.row}>
-                                <Col className="pl-0">
-                                    <Label htmlFor="numDraws">Number of simulations:</Label>
-                                    <Input type="text" name="numDraws" id="numDraws" 
+                                <Col xs={3} className="pl-0 pr-3">
+                                    <Label id="numDrawsLabel" htmlFor="numDraws">Number of simulations:</Label>
+                                    <UncontrolledTooltip placement="top" target="numDrawsLabel">Enter the number of sample proportions you wish to calculate.</UncontrolledTooltip>
+                                </Col>
+                                <Col xs={6}>
+                                    <Input type="text" name="numDraws" id="numDraws" className="ml-4 align-items-center"
                                     value={this.props.numDraws} 
                                     invalid={errors.numDraws}
                                     onBlur={this.handleBlur('numDraws')}
                                     onChange={this.handleInputChange} />
                                     <FormFeedback>{errors.numDraws}</FormFeedback>
                                 </Col>
+                            </FormGroup>
                                 <Col style={styles.buttonCol}>
                                     <Button type="submit" style={styles.button}>
                                         Go!
                                     </Button>
                                 </Col>
-                            </FormGroup>
                         </Form>
-                    </div>  
+                
                 </CardBody>
             </Card>
         );

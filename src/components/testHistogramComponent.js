@@ -20,10 +20,6 @@ function dataArrayMaker(arr1, arr2) {
     return dataArray;
 }
 
-
-
-
-
 class Histogram extends Component {
 
     constructor(props) {
@@ -40,17 +36,20 @@ class Histogram extends Component {
 
 
         return (
-            <div className={"my-pretty-chart-container"}>
+            <div>
                 <Chart
                     chartType="Histogram"
                     data={[[`\u003C ${this.props.pHat}`, `\u2265 ${this.props.pHat}`], ...dataArray]}
-                    width="100%"
+                    width="90%"
                     height="400px" 
+                    isStacked
                     options={{
                         colors: colors,
                         backgroundColor: '#F4EDEA',
                         chartArea: {top: 10},
-                        hAxis:{title:'Sample proportions'}
+                        hAxis:{title:`${this.props.numDraws} Sample proportions`},
+                        fontname: 'Georgia',
+                        hAxis: {titleTextStyle: {fontSize: 20}}
                     }}
                 />
             </div>

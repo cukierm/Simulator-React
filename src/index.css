@@ -79,5 +79,28 @@ h6 {
 }
 
 .btn-info {
+  background-color: #0081AF;
+}
+
+#ho, #pHat, #n, #numDraws {
+  border-width: 0px;
+  border-bottom-width: 1px;
+  border-radius: 0px;
+  border-color: #25283D;
   background-color: #8ACDEA;
+  font-size: 20px;
+}
+
+#numDrawsLabel {
+  font-size:17px;
+}
+
+#dropdownToggle {
+  background-color: #8ACDEA;
+  color: #25283D;
+  border-width: 0px;
+  padding-left: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: 20px;
 }
