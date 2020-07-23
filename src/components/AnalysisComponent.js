@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import '../App.css';
 import { computeSampleProp } from '../helpers.js';
-import Histogram from './testHistogramComponent.js';
+import Histogram from './HistogramComponent.js';
 
 function computeSampleArray(pHat, ho, ha, n, numDraws) {  
     let propCount = 0;
@@ -80,6 +80,9 @@ class Analysis extends Component {
                 }
             }
 
+            console.log('propCount: ', propCount);
+            console.log('this.props.numDraws: ', this.props.numDraws);
+            
             return(
                 <div id="results-container">
                     <h3>Here are {this.props.numDraws} Sample Proportions:</h3>

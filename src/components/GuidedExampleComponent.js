@@ -307,16 +307,16 @@ class AlternativeHypothesis extends Component {
     <React.Fragment>
     <div className="container">
         <div className="row">
-            <div className="col-md-8  mx-auto">
+            <div className="col-md-6  mx-auto">
                 <div className="card">
                     <div className="card-header">
                         <h3>Summary, in Symbols</h3>
                     </div>
-                    <div className="card-body">
-                        <h2>Ho: p = 0.5</h2>
-                        <h2>Ha: p {'>'} 0.5</h2>
-                        <h2>p&#770; = 0.6</h2>
-                        <h2>n = 25</h2>
+                    <div className="card-body" style={{fontSize:25}}>
+                        <p>Ho: p = 0.5</p>
+                        <p>Ha: p {'>'} 0.5</p>
+                        <p>p&#770; = 0.6</p>
+                        <p>n = 25</p>
                     </div>
                 </div>
             </div>
@@ -442,7 +442,7 @@ function StatisticalSignificance(props) {
     <React.Fragment>
     <div className="container">
         <div className="row">
-            <div className="col-md-8  mx-auto">
+            <div className="col-xs-12 col-xl-10  mx-auto">
                 <div className="card">
                     <div className="card-header">
                         <h3>Thinking about Statistical Significance</h3>
@@ -464,7 +464,34 @@ function StatisticalSignificance(props) {
 
   class PValue extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state={
+            pValueInput:''
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.pValueCheck = this.pValueCheck.bind(this);
+    }
+    
+    handleInputChange(event) {
+        this.setState({pValueInput: event.target.value});
+    }
+
+    pValueCheck(event) {
+        let pValueActual = ((this.props.proportionList.filter(p => p >= .6).length)/this.props.proportionList.length);
+        console.log('pValueInput is ', this.state.pValueInput, ' and pValueActual is ', pValueActual);
+        if (this.state.pValueInput == pValueActual) {
+            alert("Correct! You are ready to move on.");
+        }
+        else {alert("Incorrect. Make sure you count the number of proportions greater than or equal to 0.6, then divide by the number of samples.");}
+
+        event.preventDefault();
+    }
+
+
     render() {
+        console.log('pValueActual should be: ', ((this.props.proportionList.filter(p => p >= .6).length)/this.props.proportionList.length));
         return (
             <React.Fragment>
                 <div className="container">
@@ -477,7 +504,10 @@ function StatisticalSignificance(props) {
                                 <div className="card-body">
                                     <p>Here's how we can approximate that chance. Count how many of your 10 simulated sample proportions were greater than or equal to 0.6. Then divide by 10. This number is called a P-value. P for  the <u>P</u>robability (a sample proportion will be {'>= .6'}, given that the population proportion is 0.5).</p>
 
-                                    <p>10 simulated sample proportions is really too small -- you might get a very different P-value if you did the 10 simulations a different time. But if you use 50, 100, or, better yet 1000 simulations, then you can calculate the P-value much more accurately.</p>
+                                    <p>10 simulated sample proportions is really too small -- you might get a very different P-value if you did the 10 simulations a different time. But if you use 50, 100, or, better yet 1000 simulations, then you can calculate the P-value much more accurately.
+                                    </p>
+
+                                    <p>Once you've checked your P-value calculated with 10 samples, scroll back up and draw several more samples. Again, count how many are greater than or equal to 0.6, then divide by the number of samples. Check your answer again.</p>
                                 </div>
                             </div>
                         </div>
@@ -486,6 +516,14 @@ function StatisticalSignificance(props) {
                             <div id="text-container">
                                 <p>Here are your sample proportions from above:</p>
                                 <p>{this.props.proportionList.join(', ')}</p>
+                                <Form >
+                                    <p>Calculate the P-value, then press the Check button. </p>
+                                    <div className="form-group form-inline">
+                                        <Label htmlFor="pValue">P-Value: &nbsp;</Label>
+                                        <Input type="text" className="form-control" onChange={this.handleInputChange} value={this.state.pValueInput}/>
+                                    </div>
+                                    <Button type="submit" onClick={this.pValueCheck} style={{backgroundColor:"#0081AF"}}>Check</Button>
+                                </Form>
                             </div>  
                         </div>  
                     </div>
@@ -493,6 +531,33 @@ function StatisticalSignificance(props) {
             </React.Fragment>
         );
     }
+}
+
+function InterpretPVvalue (props) {
+    return(
+        <React.Fragment>
+        <div className="container">
+            <div className="row">
+                <div className="col-xs-12 col-xl-10  mx-auto">
+                    <div className="card">
+                        <div className="card-header">
+                            <h3>Interpreting the P-Value</h3>
+                        </div>
+                        <div className="card-body">
+                            <p>Say that you draw 100 samples and in only 3 of those samples is p&#770; &ge; 0.6. In other words, only 3% of the time did as many as 15 out of 25 people prefer Pepsi. So P = 0.03. This shows that if people don't prefer one cola to the other, it's pretty rare to have this many people in a sample prefer Pepsi. It looks like the null hypothesis might not be true after all: either something unlikely happened to us, or, more believably, people actually do prefer Pepsi to Coke.</p>
+
+                            <p>On the other hand, say that you draw 100 samples and in 25 of those samples p&#770; &ge; 0.6, for a P-value of 0.25. Most statisticians would say that something that happens 25% of the time is not a rare enough event to reject the null hypothesis. It might be that only 50% of people prefer Pepsi, and just by not-that-unlikely coincidence we found that 60% of the people in our sample preferred Pepsi. </p>
+
+                            <p>Notice that the small P-value of 0.03 was the one that we could use as evidence for our claim that more people prefer Pepsi to Coke. In general, <b>small</b> P-values show evidence for rejecting the null hypothesis, and <b>larger</b> P-values are not evidence either way. Researchers tend to use P&lt;0.05 or P&lt;0.01 as the standard for statistical significance.</p>
+    
+                            <p> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </React.Fragment>
+    );
 }
 class GuidedExample extends Component {
 
@@ -527,6 +592,7 @@ class GuidedExample extends Component {
                 <RepeatedSamples updateSamplePropArray={this.updateSamplePropArray} oldSampleProp={this.state.sampleProp}/>
                 <StatisticalSignificance />
                 <PValue proportionList={this.state.samplePropArray}/>
+                <InterpretPVvalue />
             </div>
         );
     }

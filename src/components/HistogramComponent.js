@@ -22,17 +22,21 @@ function dataArrayMaker(arr1, arr2) {
 
 class Histogram extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
 
         let smallArray = this.props.samplePropArray.filter(x => x < this.props.pHat);
         let bigArray = this.props.samplePropArray.filter(x => x >= this.props.pHat);
 
+        console.log('smallArray is ', smallArray);
+        console.log('bigArray is ', bigArray);
+
         let dataArray=dataArrayMaker(smallArray, bigArray);
-        const colors = (this.props.ha == '>') ? ['#0081AF', '#8C5383'] : ['#8C5383', '#0081AF'];
+
+        var colors;
+        if (smallArray.length == 0 && this.props.ha == '<')  {
+            colors = ['#0081AF'];
+        }
+        else colors = (this.props.ha == '>') ? ['#0081AF', '#8C5383'] : ['#8C5383', '#0081AF'];
 
 
         return (
@@ -47,9 +51,9 @@ class Histogram extends Component {
                         colors: colors,
                         backgroundColor: '#F4EDEA',
                         chartArea: {top: 10},
-                        hAxis:{title:`${this.props.numDraws} Sample proportions`},
+                        hAxis:{title:`${this.props.numDraws} Sample proportions`, titleTextStyle: {fontSize: 20, fontName: 'Georgia'} },
                         fontname: 'Georgia',
-                        hAxis: {titleTextStyle: {fontSize: 20}}
+                        legend:{textStyle: {fontName: 'Georgia'}}
                     }}
                 />
             </div>

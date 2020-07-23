@@ -162,7 +162,7 @@ class SimulatorForm extends Component {
                     <h3>Get Ready to Simulate!</h3>
                 </CardHeader>
                 <CardBody>
-                   
+                   <p>Enter the values below to simulate drawing samples with population proportion p.</p>
                         <Form onSubmit={this.handleSubmit} className="px-4">
                             <FormGroup row style={styles.row}>
                             <Col xs={2.5} className='pr-0 mr-0'> 
