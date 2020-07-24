@@ -1,68 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### The Simulator - A Student Tool and Tutorial for Simulation-Based Inference
 
-## Available Scripts
+Suppose you have invented a drug and find that it improves symptoms of a disease in 60% of the 25 patients in your trial. Left untreated, 40% of patients have their patients improve in the same time frame. Do we conclude that the drug worked? Or did we just get lucky with the 25 people we chose for the trial? This is the idea behind hypothesis testing: we want to know if our findings were **statistically significant**.
 
-In the project directory, you can run:
+Many students struggle with the logic of hypothesis testing. Instead of using the formulas in statstics textbook, this website provides students with a way to decide if results are significant using simulation. In the drug example above, we that 40% of people in the population have their symptoms improve. Then we  repeatedly draw 25-person samples under this assumption to see how often as many as 60% of the people in a sample had their symptoms improve.
 
-### `yarn start`
+The guided example first walks students through the relevant vocabulary and tests their knowledge as they go. It then has students practice drawing samples and calculating P-values.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![A student enters the wrong value for p&#770;](/src/screenshots/sampleProportionCheckScreenshot.png "A student enters the wrong value for p&#770;")
+![Pressing the button to generate 10 samples](/src/screenshots/repeatedSamplesScreenshot.png "Pressing the button to generate 10 samples")
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The simulator is a tool that can be used for any problem requiring a one-proportion z-test. It lists the sample proportions drawn and displays them in a histogram. It also computes the P-value for each simulation and interprets the result.
 
-### `yarn test`
+![Doing 10 simulations, we can see all 10 sample proportions](/src/screenshots/simulatorScreenshotTenSamples.png "Doing 10 simulations, we can see all 10 sample proportions")
+![Doing 200 simulations, we hide most of the sample proportions and we cannot see the distinct values in the histogram](/src/screenshots/simulatorScreenshotManySamples.png "Doing 200 simulations, we rely more on the histogram")
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In the future, I'd like to add a page where students are asked to use the simulator to investigate conceptual questions, such as how the sample size affects the P-value.
 
-### `yarn build`
+This project was reated with React and vanilla JavaScript. The histogram is courtesy react-google-charts.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
