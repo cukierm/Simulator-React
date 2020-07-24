@@ -17,4 +17,5 @@ The simulator is a tool that can be used for any problem requiring a one-proport
 In the future, I'd like to add a page where students are asked to use the simulator to investigate conceptual questions, such as how the sample size affects the P-value.
 
 This project was reated with React and vanilla JavaScript. The histogram is courtesy react-google-charts.
+The idea was inspired by the collection of applets built by Alan Rossman and Beth Chance, in particular <http://www.rossmanchance.com/applets/OneProp/OneProp.htm>
 
