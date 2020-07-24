@@ -14,7 +14,7 @@ The simulator is a tool that can be used for any problem requiring a one-proport
 ![Doing 10 simulations, we can see all 10 sample proportions](/src/screenshots/simulatorScreenshotTenSamples.png "Doing 10 simulations, we can see all 10 sample proportions")
 ![Doing 200 simulations, we hide most of the sample proportions and we cannot see the distinct values in the histogram](/src/screenshots/simulatorScreenshotManySamples.png "Doing 200 simulations, we rely more on the histogram")
 
-In the future, I'd like to add a page where students are asked to use the simulator to investigate conceptual questions, such as how the sample size affects the P-value.
+In the future, I'd like to add a page where students are asked to use the simulator to investigate conceptual questions, such as how the sample size affects the P-value. I could also add a page with some exercises, where students need to use the simulator to solve them.
 
 This project was reated with React and vanilla JavaScript. The histogram is courtesy react-google-charts.
 The idea was inspired by the collection of applets built by Alan Rossman and Beth Chance, in particular <http://www.rossmanchance.com/applets/OneProp/OneProp.htm>
