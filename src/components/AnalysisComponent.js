@@ -15,8 +15,6 @@ function computeSampleArray(pHat, ho, ha, n, numDraws) {
                 propCount++;
             }            
         }
-        console.log([pHat, ho, ha, n, numDraws]);
-        console.log(propCount);
     }
     else if (ha === '<') {
         for (let i=0; i<numDraws; i++) {
@@ -42,8 +40,6 @@ class Analysis extends Component {
 
     displaySamplePropsToggle = () => {
         this.setState({displayAllSampleProps: !this.state.displayAllSampleProps});
-        console.log("button was pressed!");
-        console.log("and here is the boolean: ", this.state.displayAllSampleProps);
     }
 
     render () {
@@ -79,9 +75,6 @@ class Analysis extends Component {
                             </Button>
                 }
             }
-
-            console.log('propCount: ', propCount);
-            console.log('this.props.numDraws: ', this.props.numDraws);
             
             return(
                 <div id="results-container">

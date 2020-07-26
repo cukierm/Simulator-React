@@ -342,7 +342,6 @@ class AlternativeHypothesis extends Component {
         let newSampleProp = computeSampleProp(.6, 25);
         this.setState({sampleProp: newSampleProp});
         this.props.updateSampleProp(newSampleProp);
-        console.log(newSampleProp);
     }
     
     render() {
@@ -399,8 +398,7 @@ class RepeatedSamples extends Component {
         samplePropArray.push(sampleProp);
         this.setState({samplePropArray:samplePropArray});
         this.props.updateSamplePropArray(samplePropArray);
-        console.log(samplePropArray);
-        console.log(JSON.stringify(this.state));
+
     }
 
     render() {
@@ -480,7 +478,6 @@ function StatisticalSignificance(props) {
 
     pValueCheck(event) {
         let pValueActual = ((this.props.proportionList.filter(p => p >= .6).length)/this.props.proportionList.length);
-        console.log('pValueInput is ', this.state.pValueInput, ' and pValueActual is ', pValueActual);
         if (this.state.pValueInput == pValueActual) {
             alert("Correct! You are ready to move on.");
         }
@@ -491,7 +488,6 @@ function StatisticalSignificance(props) {
 
 
     render() {
-        console.log('pValueActual should be: ', ((this.props.proportionList.filter(p => p >= .6).length)/this.props.proportionList.length));
         return (
             <React.Fragment>
                 <div className="container">
@@ -571,7 +567,6 @@ class GuidedExample extends Component {
 
         updateSampleProp = (newSampleProp) => {
             this.setState({sampleProp: newSampleProp});
-            setTimeout(console.log('from updateSampleProp:' + JSON.stringify(this.state)), 100000);
         }
 
         updateSamplePropArray = (newSamplePropArray) => {

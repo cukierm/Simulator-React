@@ -117,9 +117,7 @@ class SimulatorForm extends Component {
     
         this.setState({
           [name]: value
-        });
-        console.log(JSON.stringify(this.state));
-        
+        });    
     }
 
     handleSubmit(event) {

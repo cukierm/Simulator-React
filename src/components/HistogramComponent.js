@@ -27,9 +27,6 @@ class Histogram extends Component {
         let smallArray = this.props.samplePropArray.filter(x => x < this.props.pHat);
         let bigArray = this.props.samplePropArray.filter(x => x >= this.props.pHat);
 
-        console.log('smallArray is ', smallArray);
-        console.log('bigArray is ', bigArray);
-
         let dataArray=dataArrayMaker(smallArray, bigArray);
 
         var colors;
