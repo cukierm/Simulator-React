@@ -3,6 +3,7 @@ import '../App.css';
 import SimulatorForm from './SimulatorFormComponent.js';
 import FlexyJumbotron from './FlexyJumbotronComponent.js';
 import Analysis from './AnalysisComponent.js';
+import { computeSampleArray } from '../helpers.js';
 
 
 class SimulatorContainer extends Component {
@@ -23,10 +24,12 @@ class SimulatorContainer extends Component {
 
     updateState = (newPHat, newHo, newHa, newN, newNumDraws) => {
         this.setState(
-        {pHat: newPHat, ho: newHo, ha: newHa, n: newN, numDraws: newNumDraws, display: true})
+        {pHat: newPHat, ho: newHo, ha: newHa, n: newN, numDraws: newNumDraws, display: true});
       }
 
     render() {
+        var infoArray=(computeSampleArray(this.state.pHat, this.state.ho, this.state.ha, this.state.n, this.state.numDraws));
+
         return (
             <div style={{backgroundColor: "#F4EDEA"}}>
               <FlexyJumbotron titleText="Simulator" />
@@ -35,7 +38,7 @@ class SimulatorContainer extends Component {
                         <SimulatorForm updateState={this.updateState} />
                     </div>
                     <div className="col">
-                        <Analysis pHat={this.state.pHat} ho={this.state.ho} ha={this.state.ha} n={this.state.n} numDraws={this.state.numDraws} display={this.state.display} />
+                        <Analysis pHat={this.state.pHat} ho={this.state.ho} ha={this.state.ha} n={this.state.n} numDraws={this.state.numDraws} display={this.state.display} infoArray={infoArray}/>
                     </div>
                 </div>
             </div>

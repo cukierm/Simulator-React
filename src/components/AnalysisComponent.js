@@ -1,34 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import '../App.css';
-import { computeSampleProp } from '../helpers.js';
 import Histogram from './HistogramComponent.js';
-
-function computeSampleArray(pHat, ho, ha, n, numDraws) {  
-    let propCount = 0;
-    let samplePropArray=[]
-    if (ha === '>') {
-        for (let i=0; i<numDraws; i++) {
-            let sampleProp = computeSampleProp(ho, n);
-            samplePropArray.push(sampleProp);
-            if (sampleProp >= pHat) { 
-                propCount++;
-            }            
-        }
-    }
-    else if (ha === '<') {
-        for (let i=0; i<numDraws; i++) {
-            let sampleProp = computeSampleProp(ho, n);
-            samplePropArray.push(sampleProp);
-            if (sampleProp <= pHat) { 
-                propCount++;    
-            }
-        }
-    };   
-    return [samplePropArray, propCount];
-};
-
-
 
 class Analysis extends Component {
 
@@ -38,19 +11,19 @@ class Analysis extends Component {
         this.displaySamplePropsToggle = this.displaySamplePropsToggle.bind(this);
     }
 
-    displaySamplePropsToggle = () => {
+    displaySamplePropsToggle = (event) => {
         this.setState({displayAllSampleProps: !this.state.displayAllSampleProps});
+        event.preventDefault();
     }
+
 
     render () {
         const numDisplay = 16;
 
         if (this.props.display) {
-
-            var infoArray = computeSampleArray(this.props.pHat, this.props.ho, this.props.ha, this.props.n, this.props.numDraws);
-            var propCount = infoArray[1];
+            var propCount = this.props.infoArray[1];
             
-            var samplePropArray = infoArray[0];
+            var samplePropArray = this.props.infoArray[0];
             var roundedSamplePropArray = samplePropArray.map(x => x.toFixed(2));
             var stringSampleProps = (this.props.numDraws <= numDisplay || this.state.displayAllSampleProps) ? roundedSamplePropArray.join(', ') : roundedSamplePropArray.slice(0,numDisplay).join(', ') + '...';
 
