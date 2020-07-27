@@ -478,8 +478,15 @@ function StatisticalSignificance(props) {
 
     pValueCheck(event) {
         let pValueActual = ((this.props.proportionList.filter(p => p >= .6).length)/this.props.proportionList.length);
-        if (this.state.pValueInput == pValueActual) {
+        console.log('pValueInput is ', this.state.pValueInput);
+        console.log('pValueActual is ', pValueActual);
+        console.log('rounded pValueInput is ', Number(this.state.pValueInput).toFixed(2));
+        console.log('rounded pValueActual is ', pValueActual.toFixed(2))
+        if (Number(this.state.pValueInput).toFixed(2) == (pValueActual.toFixed(2))) {
             alert("Correct! You are ready to move on.");
+        }
+        else if (Math.abs(Number(this.state.pValueInput).toFixed(2) - pValueActual.toFixed(2)) < .1) {
+            alert("Close. Make sure you're rounding properly.");
         }
         else {alert("Incorrect. Make sure you count the number of proportions greater than or equal to 0.6, then divide by the number of samples.");}
 
