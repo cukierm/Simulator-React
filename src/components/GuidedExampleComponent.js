@@ -143,7 +143,7 @@ class NullHypothesis extends Component {
                                     
                                     <p>If this is true, the Pepsi Challenge didn't mean anything: the majority's preference for Pepsi was just a coincidence. This scenario is called the <b>null hypothesis</b>, or Ho. </p>
 
-                                    <p>In symbols, the null hypothesis says that p = .05. That is, "the population proportion is equal to 50%"</p>
+                                    <p>In symbols, the null hypothesis says that p = 0.5. That is, "the population proportion is equal to 50%"</p>
                                 </div>
                             </div>
                         </div>
@@ -478,10 +478,6 @@ function StatisticalSignificance(props) {
 
     pValueCheck(event) {
         let pValueActual = ((this.props.proportionList.filter(p => p >= .6).length)/this.props.proportionList.length);
-        console.log('pValueInput is ', this.state.pValueInput);
-        console.log('pValueActual is ', pValueActual);
-        console.log('rounded pValueInput is ', Number(this.state.pValueInput).toFixed(2));
-        console.log('rounded pValueActual is ', pValueActual.toFixed(2))
         if (Number(this.state.pValueInput).toFixed(2) == (pValueActual.toFixed(2))) {
             alert("Correct! You are ready to move on.");
         }
